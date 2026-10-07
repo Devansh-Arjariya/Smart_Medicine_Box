@@ -8,7 +8,7 @@
 An offline-first Smart Medicine Box (SMB) designed for automated medication management, featuring scheduled dispensing, user authentication, real-time intake and inventory monitoring, local data logging, and cloud synchronization when internet connectivity is available.
 
 ---
-
+Visit Site - "https://devansh-arjariya.github.io/Smart_Medicine_Box/"
 ## ✨ Key Features
 
 - **🔐 Dual Authentication**: Firebase Email/Password login plus instant **RFID Smart Card Simulation** (`CARD001`, `CARD002`).

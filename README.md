@@ -5,7 +5,7 @@
 [![Frontend](https://img.shields.io/badge/Frontend-HTML%20%7C%20CSS%20%7C%20JS-blue.svg)]()
 [![Platform](https://img.shields.io/badge/Platform-Web%20%26%20IoT-green.svg)]()
 
-> A cloud-connected, IoT-enabled medication management portal that tracks pill schedules, monitors inventory in real time, and synchronizes with smart dispensing hardware.
+An offline-first Smart Medicine Box (SMB) designed for automated medication management, featuring scheduled dispensing, user authentication, real-time intake and inventory monitoring, local data logging, and cloud synchronization when internet connectivity is available.
 
 ---
 

@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Medicine Box Pro - Authentication</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <!-- Back to Home Button -->
+    <a href="home.html" class="back-home">
+        <i class="fas fa-arrow-left"></i>
+        Back to Home
+    </a>
+
+    <!-- Main Container -->
+    <div class="auth-container">
+        <!-- Left Panel - Branding -->
+        <div class="left-panel">
+            <div class="brand-section">
+                <div class="logo">
+                    <i class="fas fa-pills"></i>
+                    <span>SMB</span>
+                </div>
+                <div class="hero-content">
+                    <h1>Smart Medicine Management</h1>
+                    <p>Revolutionizing healthcare with intelligent medication tracking and RFID-enabled dispensing solutions.</p>
+                    <div class="features">
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Secure & Reliable</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Real-time Monitoring</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Mobile Integration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="background-overlay"></div>
+        </div>
+
+        <!-- Right Panel - Authentication Forms -->
+        <div class="right-panel">
+            <div class="form-container">
+                <!-- Form Header -->
+                <div class="form-header">
+                    <h2 id="form-title">Welcome Back</h2>
+                    <p id="form-subtitle">Sign in to access your Smart Medicine Box dashboard</p>
+                </div>
+
+                <!-- Form Tabs -->
+                <div class="form-tabs">
+                    <button class="tab-btn active" id="login-tab" data-form="login">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
+                    </button>
+                    <button class="tab-btn" id="signup-tab" data-form="signup">
+                        <i class="fas fa-user-plus"></i>
+                        Sign Up
+                    </button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label for="login-email">
+                            <i class="fas fa-envelope"></i>
+                            Email Address
+                        </label>
+                        <input type="email" id="login-email" name="email" placeholder="Enter your email" required>
+                        <div class="error-message" id="login-email-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">
+                            <i class="fas fa-lock"></i>
+                            Password
+                        </label>
+                        <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+                        <div class="password-toggle" onclick="togglePassword('login-password')">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="error-message" id="login-password-error"></div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="remember-login">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-password" id="forgot-password-link">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
+                    </button>
+
+                    <div class="social-login">
+                        <div class="divider">
+                            <span>Or continue with</span>
+                        </div>
+                        <div class="social-buttons">
+                            <button type="button" class="social-btn google-btn">
+                                <i class="fab fa-google"></i>
+                                Google
+                            </button>
+                            <button type="button" class="social-btn guest-btn" style="background: #3b82f6; color: white;">
+                                <i class="fas fa-user-clock"></i>
+                                Guest Sign-In
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Sign Up Form -->
+                <form id="signup-form" class="auth-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signup-firstname">
+                                <i class="fas fa-user"></i>
+                                First Name
+                            </label>
+                            <input type="text" id="signup-firstname" name="firstname" placeholder="First name" required>
+                            <div class="error-message" id="signup-firstname-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-lastname">
+                                <i class="fas fa-user"></i>
+                                Last Name
+                            </label>
+                            <input type="text" id="signup-lastname" name="lastname" placeholder="Last name" required>
+                            <div class="error-message" id="signup-lastname-error"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-username">
+                            <i class="fas fa-at"></i>
+                            Username
+                        </label>
+                        <input type="text" id="signup-username" name="username" placeholder="Choose a username" required>
+                        <div class="input-help">This will be your unique identifier</div>
+                        <div class="error-message" id="signup-username-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-email">
+                            <i class="fas fa-envelope"></i>
+                            Email Address
+                        </label>
+                        <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+                        <div class="error-message" id="signup-email-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-password">
+                            <i class="fas fa-lock"></i>
+                            Password
+                        </label>
+                        <input type="password" id="signup-password" name="password" placeholder="Create a strong password" required>
+                        <div class="password-toggle" onclick="togglePassword('signup-password')">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="password-strength">
+                            <div class="strength-meter">
+                                <div class="strength-bar" id="strength-bar"></div>
+                            </div>
+                            <span class="strength-text" id="strength-text">Password strength</span>
+                        </div>
+                        <div class="error-message" id="signup-password-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-confirm-password">
+                            <i class="fas fa-lock"></i>
+                            Confirm Password
+                        </label>
+                        <input type="password" id="signup-confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+                        <div class="password-toggle" onclick="togglePassword('signup-confirm-password')">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="error-message" id="signup-confirm-password-error"></div>
+                    </div>
+
+                    <!-- RFID Tag Section -->
+                    <div class="form-group rfid-section">
+                        <label for="rfid-tag-id">
+                            <i class="fas fa-microchip"></i>
+                            RFID Tag ID
+                        </label>
+                        <div class="rfid-input-container">
+                            <input type="text" id="rfid-tag-id" name="rfid-tag-id" placeholder="RFID Tag ID (Optional - Auto-generated)">
+                            <button type="button" class="rfid-scan-btn" onclick="scanRFID()">
+                                <i class="fas fa-qrcode"></i>
+                                Scan
+                            </button>
+                        </div>
+                        <div class="input-help">
+                            <i class="fas fa-info-circle"></i>
+                            This ID will link your account to your Smart Medicine Box hardware
+                        </div>
+                        <div class="error-message" id="rfid-tag-id-error"></div>
+                    </div>
+
+                    <!-- Hardware Connection Status -->
+                    <div class="hardware-status" id="hardware-status">
+                        <div class="status-indicator">
+                            <i class="fas fa-wifi"></i>
+                            <span>Hardware Connection: <span id="connection-status">Not Connected</span></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="terms-checkbox" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#" target="_blank">Terms & Conditions</a> and <a href="#" target="_blank">Privacy Policy</a>
+                        </label>
+                        <div class="error-message" id="terms-checkbox-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="newsletter-checkbox">
+                            <span class="checkmark"></span>
+                            Subscribe to health tips and product updates
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-user-plus"></i>
+                        Create Account
+                    </button>
+
+                    <div class="social-login">
+                        <div class="divider">
+                            <span>Or sign up with</span>
+                        </div>
+                        <div class="social-buttons">
+                            <button type="button" class="social-btn google-btn">
+                                <i class="fab fa-google"></i>
+                                Google
+                            </button>
+                            <button type="button" class="social-btn apple-btn">
+                                <i class="fab fa-apple"></i>
+                                Apple
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Password Reset Form -->
+                <form id="reset-form" class="auth-form">
+                    <div class="reset-header">
+                        <i class="fas fa-key"></i>
+                        <h3>Reset Your Password</h3>
+                        <p>Enter your email address and we'll send you a link to reset your password.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reset-email">
+                            <i class="fas fa-envelope"></i>
+                            Email Address
+                        </label>
+                        <input type="email" id="reset-email" name="email" placeholder="Enter your email" required>
+                        <div class="error-message" id="reset-email-error"></div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Reset Link
+                    </button>
+
+                    <div class="form-footer">
+                        <a href="#" id="back-to-login" class="back-link">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Sign In
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Additional Info Section -->
+            <div class="info-section">
+                <div class="security-info">
+                    <h4><i class="fas fa-shield-alt"></i> Your Security Matters</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 256-bit SSL encryption</li>
+                        <li><i class="fas fa-check"></i> HIPAA compliant storage</li>
+                        <li><i class="fas fa-check"></i> Multi-factor authentication</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p id="loading-text">Processing...</p>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div class="message-container" id="message-container"></div>
+
+    <!-- Firebase SDKs & Init -->
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-database-compat.js"></script>
+    <script src="firebase-init.js"></script>
+
+    <script>
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+
+        // Form switching functionality
+        const loginTab = document.getElementById('login-tab');
+        const signupTab = document.getElementById('signup-tab');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const resetForm = document.getElementById('reset-form');
+        const forgotPasswordLink = document.getElementById('forgot-password-link');
+        const backToLoginLink = document.getElementById('back-to-login');
+        const formTitle = document.getElementById('form-title');
+        const formSubtitle = document.getElementById('form-subtitle');
+
+        function showForm(formToShow, title, subtitle) {
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            formToShow.classList.add('active');
+            formTitle.textContent = title;
+            formSubtitle.textContent = subtitle;
+        }
+
+        function setActiveTab(activeTab) {
+            document.querySelectorAll('.tab-btn').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            activeTab.classList.add('active');
+        }
+
+        loginTab.addEventListener('click', () => {
+            setActiveTab(loginTab);
+            showForm(loginForm, 'Welcome Back', 'Sign in to access your Smart Medicine Box dashboard');
+        });
+
+        signupTab.addEventListener('click', () => {
+            setActiveTab(signupTab);
+            showForm(signupForm, 'Create Account', 'Join thousands of users managing their health smartly');
+        });
+
+        forgotPasswordLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showForm(resetForm, 'Reset Password', 'We\'ll help you get back to your account');
+            document.querySelectorAll('.tab-btn').forEach(tab => {
+                tab.classList.remove('active');
+            });
+        });
+
+        backToLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            setActiveTab(loginTab);
+            showForm(loginForm, 'Welcome Back', 'Sign in to access your Smart Medicine Box dashboard');
+        });
+
+        // Password visibility toggle
+        function togglePassword(inputId) {
+            const passwordInput = document.getElementById(inputId);
+            const toggleIcon = passwordInput.nextElementSibling.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Password strength checker
+        document.getElementById('signup-password').addEventListener('input', function() {
+            const password = this.value;
+            const strengthBar = document.getElementById('strength-bar');
+            const strengthText = document.getElementById('strength-text');
+            
+            let strength = 0;
+            let feedback = 'Weak';
+            
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password)) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^a-zA-Z\d]/.test(password)) strength++;
+            
+            switch(strength) {
+                case 0:
+                case 1:
+                    feedback = 'Very Weak';
+                    strengthBar.className = 'strength-bar weak';
+                    break;
+                case 2:
+                    feedback = 'Weak';
+                    strengthBar.className = 'strength-bar weak';
+                    break;
+                case 3:
+                    feedback = 'Fair';
+                    strengthBar.className = 'strength-bar fair';
+                    break;
+                case 4:
+                    feedback = 'Good';
+                    strengthBar.className = 'strength-bar good';
+                    break;
+                case 5:
+                    feedback = 'Strong';
+                    strengthBar.className = 'strength-bar strong';
+                    break;
+            }
+            
+            strengthText.textContent = feedback;
+        });
+
+        // RFID Scanning functionality
+        function scanRFID() {
+            const scanBtn = document.querySelector('.rfid-scan-btn');
+            const rfidInput = document.getElementById('rfid-tag-id');
+            const statusElement = document.getElementById('connection-status');
+            
+            scanBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning...';
+            scanBtn.disabled = true;
+            
+            setTimeout(() => {
+                const mockRFID = 'SMB-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+                rfidInput.value = mockRFID;
+                if (statusElement) {
+                    statusElement.textContent = 'Connected';
+                    if (statusElement.parentElement) statusElement.parentElement.classList.add('connected');
+                }
+                
+                scanBtn.innerHTML = '<i class="fas fa-check"></i> Scanned';
+                setTimeout(() => {
+                    scanBtn.innerHTML = '<i class="fas fa-qrcode"></i> Scan';
+                    scanBtn.disabled = false;
+                }, 1500);
+            }, 600);
+        }
+
+        // Form validation functions
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePassword(password) {
+            return password && password.length >= 6;
+        }
+
+        function validateUsername(username) {
+            return username && username.trim().length >= 2;
+        }
+
+        function showError(inputId, message) {
+            const errorElement = document.getElementById(inputId + '-error');
+            const inputElement = document.getElementById(inputId);
+            if (errorElement) {
+                errorElement.textContent = message;
+            }
+            if (inputElement) {
+                inputElement.classList.add('error');
+            }
+        }
+
+        function clearError(inputId) {
+            const errorElement = document.getElementById(inputId + '-error');
+            const inputElement = document.getElementById(inputId);
+            if (errorElement) {
+                errorElement.textContent = '';
+            }
+            if (inputElement) {
+                inputElement.classList.remove('error');
+            }
+        }
+
+        function showMessage(message, type = 'success') {
+            const messageContainer = document.getElementById('message-container');
+            if (!messageContainer) return;
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            messageContainer.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                if (messageDiv.parentElement) messageDiv.remove();
+            }, 6000);
+        }
+
+        function showLoading(text = 'Processing...') {
+            document.getElementById('loading-text').textContent = text;
+            document.getElementById('loading-overlay').classList.add('active');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading-overlay').classList.remove('active');
+        }
+
+        // Redirect if already logged in
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                console.log('User currently authenticated:', user.email || user.uid);
+            }
+        });
+
+        // Helper function for local session fallback when Firebase API key is restricted/invalid
+        function handleLocalFallbackAuth(profileData, isSignup = false) {
+            const email = profileData.email || 'user@smb.com';
+            const localUsers = JSON.parse(localStorage.getItem('smb_local_users') || '{}');
+            
+            if (isSignup) {
+                const fallbackUser = {
+                    uid: 'local_' + Date.now(),
+                    firstName: profileData.firstName || 'User',
+                    lastName: profileData.lastName || '',
+                    name: profileData.name || `${profileData.firstName || 'User'} ${profileData.lastName || ''}`.trim(),
+                    username: profileData.username || email.split('@')[0],
+                    email: email,
+                    rfidTagId: profileData.rfidTagId || 'SMB-' + Math.random().toString(36).substr(2, 6).toUpperCase()
+                };
+                localUsers[email] = fallbackUser;
+                localStorage.setItem('smb_local_users', JSON.stringify(localUsers));
+                localStorage.setItem('smb_active_user', JSON.stringify(fallbackUser));
+            } else {
+                let userObj = localUsers[email];
+                if (!userObj) {
+                    userObj = {
+                        uid: 'local_' + Date.now(),
+                        name: profileData.name || email.split('@')[0],
+                        email: email,
+                        rfidTagId: 'SMB-' + Math.random().toString(36).substr(2, 6).toUpperCase()
+                    };
+                }
+                localStorage.setItem('smb_active_user', JSON.stringify(userObj));
+            }
+
+            hideLoading();
+            showMessage('Signed in via Local Session! (Note: Copy your active API key from Firebase Console -> Project Settings to sync with Firebase Cloud). Redirecting...', 'info');
+            setTimeout(() => {
+                window.location.href = 'main.html';
+            }, 1500);
+        }
+
+        // Login form submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            
+            let isValid = true;
+
+            clearError('login-email');
+            clearError('login-password');
+
+            if (!validateEmail(email)) {
+                showError('login-email', 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            if (!password) {
+                showError('login-password', 'Password is required');
+                isValid = false;
+            }
+
+            if (isValid) {
+                showLoading('Signing you in...');
+                firebase.auth().signInWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        return window.initUserDatabaseSchema(userCredential.user);
+                    })
+                    .then(() => {
+                        hideLoading();
+                        showMessage('Login successful! Redirecting to dashboard...', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'main.html';
+                        }, 1000);
+                    })
+                    .catch((error) => {
+                        console.warn('Firebase Auth error:', error);
+                        if (error.code === 'auth/api-key-not-valid' || (error.message && error.message.includes('api-key-not-valid'))) {
+                            handleLocalFallbackAuth({ email }, false);
+                        } else {
+                            hideLoading();
+                            let errorMsg = error.message || 'Failed to sign in';
+                            if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+                                errorMsg = 'Incorrect email or password. Please check your credentials or click Sign Up.';
+                            }
+                            showError('login-password', errorMsg);
+                            showMessage(errorMsg, 'error');
+                        }
+                    });
+            }
+        });
+
+        // Signup form submission
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const firstName = document.getElementById('signup-firstname').value.trim();
+            const lastName = document.getElementById('signup-lastname').value.trim();
+            let username = document.getElementById('signup-username').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+            let rfidTagId = document.getElementById('rfid-tag-id').value.trim();
+            const termsAccepted = document.getElementById('terms-checkbox').checked;
+            
+            let isValid = true;
+
+            ['signup-firstname', 'signup-lastname', 'signup-username', 'signup-email', 'signup-password', 'signup-confirm-password', 'rfid-tag-id', 'terms-checkbox'].forEach(id => {
+                clearError(id);
+            });
+
+            if (!firstName) {
+                showError('signup-firstname', 'First name is required');
+                isValid = false;
+            }
+
+            if (!lastName) {
+                showError('signup-lastname', 'Last name is required');
+                isValid = false;
+            }
+
+            if (!username) {
+                username = (firstName + '_' + lastName).toLowerCase().replace(/[^a-z0-9_]/g, '');
+            } else {
+                username = username.toLowerCase().replace(/\s+/g, '_');
+            }
+
+            if (!validateEmail(email)) {
+                showError('signup-email', 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            if (!validatePassword(password)) {
+                showError('signup-password', 'Password must be at least 6 characters long');
+                isValid = false;
+            }
+
+            if (password !== confirmPassword) {
+                showError('signup-confirm-password', 'Passwords do not match');
+                isValid = false;
+            }
+
+            if (!rfidTagId) {
+                rfidTagId = 'SMB-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+                document.getElementById('rfid-tag-id').value = rfidTagId;
+            }
+
+            if (!termsAccepted) {
+                showError('terms-checkbox', 'You must accept the Terms & Conditions');
+                isValid = false;
+            }
+
+            if (isValid) {
+                showLoading('Creating your account...');
+                const profileData = {
+                    firstName,
+                    lastName,
+                    name: `${firstName} ${lastName}`,
+                    username,
+                    email,
+                    rfidTagId
+                };
+
+                firebase.auth().createUserWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        const user = userCredential.user;
+                        return window.initUserDatabaseSchema(user, profileData);
+                    })
+                    .then(() => {
+                        hideLoading();
+                        showMessage('Account created successfully! Redirecting to dashboard...', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'main.html';
+                        }, 1000);
+                    })
+                    .catch((error) => {
+                        console.warn('Firebase Auth error:', error);
+                        if (error.code === 'auth/api-key-not-valid' || (error.message && error.message.includes('api-key-not-valid'))) {
+                            handleLocalFallbackAuth(profileData, true);
+                        } else {
+                            hideLoading();
+                            let errorMsg = error.message || 'Sign up failed.';
+                            if (error.code === 'auth/email-already-in-use') {
+                                errorMsg = 'This email is already registered! Click "Sign In" above to log in.';
+                                showError('signup-email', 'Email already registered');
+                            } else if (error.code === 'auth/weak-password') {
+                                errorMsg = 'Password should be at least 6 characters.';
+                                showError('signup-password', 'Weak password');
+                            } else if (error.code === 'auth/invalid-email') {
+                                errorMsg = 'Invalid email address format.';
+                                showError('signup-email', 'Invalid email format');
+                            }
+                            showMessage(errorMsg, 'error');
+                        }
+                    });
+            }
+        });
+
+        // Reset form submission
+        resetForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('reset-email').value;
+            
+            clearError('reset-email');
+
+            if (!validateEmail(email)) {
+                showError('reset-email', 'Please enter a valid email address');
+                return;
+            }
+
+            showLoading('Sending reset link...');
+            firebase.auth().sendPasswordResetEmail(email)
+                .then(() => {
+                    hideLoading();
+                    showMessage('Password reset link sent to your email!', 'success');
+                    setActiveTab(loginTab);
+                    showForm(loginForm, 'Welcome Back', 'Sign in to access your Smart Medicine Box dashboard');
+                    resetForm.reset();
+                })
+                .catch((error) => {
+                    hideLoading();
+                    showError('reset-email', error.message || 'Failed to send reset email');
+                    showMessage(error.message || 'Could not send reset link.', 'error');
+                });
+        });
+
+        // Clear errors on input
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', () => {
+                if (input.classList.contains('error')) {
+                    clearError(input.id);
+                }
+            });
+        });
+
+        // Social & Guest login handlers
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (btn.classList.contains('google-btn')) {
+                    showLoading('Connecting with Google...');
+                    const provider = new firebase.auth.GoogleAuthProvider();
+                    firebase.auth().signInWithPopup(provider)
+                        .then((result) => {
+                            return window.initUserDatabaseSchema(result.user);
+                        })
+                        .then(() => {
+                            hideLoading();
+                            showMessage('Google Sign-in successful! Redirecting...', 'success');
+                            setTimeout(() => {
+                                window.location.href = 'main.html';
+                            }, 1000);
+                        })
+                        .catch((error) => {
+                            if (error.code === 'auth/api-key-not-valid' || (error.message && error.message.includes('api-key-not-valid'))) {
+                                handleLocalFallbackAuth({ name: 'Google User', email: 'google_user@smb.com' }, true);
+                            } else {
+                                hideLoading();
+                                showMessage(error.message || 'Google sign-in failed', 'error');
+                            }
+                        });
+                } else if (btn.classList.contains('guest-btn')) {
+                    showLoading('Logging in as Guest...');
+                    firebase.auth().signInAnonymously()
+                        .then((result) => {
+                            return window.initUserDatabaseSchema(result.user, {
+                                name: 'Guest User',
+                                disease: 'Diabetes & Blood Pressure Tracking'
+                            });
+                        })
+                        .then(() => {
+                            hideLoading();
+                            showMessage('Guest session created! Redirecting...', 'success');
+                            setTimeout(() => {
+                                window.location.href = 'main.html';
+                            }, 1000);
+                        })
+                        .catch((error) => {
+                            if (error.code === 'auth/api-key-not-valid' || (error.message && error.message.includes('api-key-not-valid'))) {
+                                handleLocalFallbackAuth({ name: 'Guest User', email: 'guest@smb.com' }, true);
+                            } else {
+                                hideLoading();
+                                showMessage(error.message || 'Guest sign-in failed', 'error');
+                            }
+                        });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "README.md",
+      "CONTRIBUTING.md",
+      "LICENSE"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/Home Page/home.html"
+      }
+    ]
+  }
+}

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Medicine Box Pro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-btn" id="mobileMenuBtn">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Mobile Overlay -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-icon">💊</div>
+      <h1>Smart Medicine Box</h1>
+      <div class="author-credit">Professional Healthcare Management</div>
+    </div>
+
+    <!-- RFID Scanner Section -->
+    <div class="rfid-scanner">
+      <div class="rfid-display">
+        <i class="fas fa-credit-card"></i>
+        <span>Scan RFID Card</span>
+        <div class="rfid-status" id="rfidStatus">Ready to scan</div>
+      </div>
+      <button class="rfid-btn" onclick="simulateRFIDScan()">
+        <i class="fas fa-wifi"></i> Simulate RFID
+      </button>
+    </div>
+
+    <!-- User Info Section -->
+    <div class="user-info" id="userInfo">
+      <div class="user-avatar" id="userAvatar">
+        <i class="fas fa-user-md"></i>
+      </div>
+      <div class="user-name" id="userName">Guest User</div>
+      <div class="user-id" id="userId">ID: Not Scanned</div>
+      <div class="user-status" id="userStatus">Please scan RFID</div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+      <button class="nav-item active" onclick="showSection('dashboard')">
+        <i class="fas fa-chart-line"></i> Dashboard
+      </button>
+      <button class="nav-item" onclick="showSection('schedule')">
+        <i class="fas fa-calendar-check"></i> Schedule
+      </button>
+      <button class="nav-item" onclick="showSection('inventory')">
+        <i class="fas fa-box-open"></i> Inventory
+      </button>
+      <button class="nav-item" onclick="showSection('control')">
+        <i class="fas fa-sliders-h"></i> Control Panel
+      </button>
+      <button class="nav-item" onclick="showSection('alerts')">
+        <i class="fas fa-bell"></i> Alerts
+      </button>
+      <button class="nav-item" onclick="showSection('profile')">
+        <i class="fas fa-user-cog"></i> Profile
+      </button>
+      <button class="nav-item" onclick="showSection('caretaker')">
+        <i class="fas fa-users-cog"></i> Caretaker
+      </button>
+      <button class="nav-item" onclick="handleLogout()" style="color: #ef4444; margin-top: 1rem;">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </nav>
+
+    <!-- Theme Controls -->
+    <div class="theme-controls">
+      <span><i class="fas fa-palette"></i> Theme Selection</span>
+      <div class="theme-buttons">
+        <button class="theme-btn active" onclick="setTheme('light')">
+          <i class="fas fa-sun"></i> Light
+        </button>
+        <button class="theme-btn" onclick="setTheme('dark')">
+          <i class="fas fa-moon"></i> Dark
+        </button>
+        <button class="theme-btn" onclick="setTheme('green')">
+          <i class="fas fa-leaf"></i> Green
+        </button>
+      </div>
+    </div>
+
+    <!-- Copyright Footer -->
+    <div class="sidebar-footer">
+      © Smart Medicine Box - The Developing Dynamos<br>
+      Created by Devansh Arjariya
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="welcome-text">
+        <h2><i class="fas fa-tachometer-alt"></i> Welcome Back, <span id="welcomeUserName">Guest</span></h2>
+      </div>
+      <div class="top-bar-right" style="display: flex; align-items: center; gap: 1rem;">
+        <div class="datetime">
+          <i class="fas fa-clock"></i> <span id="datetime"></span>
+        </div>
+        <button id="logoutBtn" class="btn-logout" onclick="handleLogout()" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-weight: 600; transition: all 0.2s;">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="dashboard active">
+      <h2><i class="fas fa-chart-pie"></i> Health Dashboard</h2>
+      <div class="cards">
+        <div class="card">
+          <h3><i class="fas fa-clock"></i> Next Dose</h3>
+          <p id="nextDose">No medicines scheduled</p>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-pills"></i> Total Pills</h3>
+          <p id="totalPills">0 remaining</p>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-check-circle"></i> Last Taken</h3>
+          <p id="lastTaken">No record</p>
+        </div>
+        <div class="card alert">
+          <h3><i class="fas fa-exclamation-triangle"></i> Active Alerts</h3>
+          <p id="activeAlerts">0 notifications</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="schedule">
+      <h2><i class="fas fa-calendar-check"></i> Medicine Schedule</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th><i class="fas fa-capsules"></i> Medicine</th>
+              <th><i class="fas fa-weight"></i> Dosage</th>
+              <th><i class="fas fa-clock"></i> Time</th>
+              <th><i class="fas fa-repeat"></i> Frequency</th>
+              <th><i class="fas fa-info-circle"></i> Uses</th>
+              <th><i class="fas fa-cogs"></i> Actions</th>
+            </tr>
+          </thead>
+          <tbody id="schedule-table">
+            <tr>
+              <td colspan="6" class="no-data">No medicines scheduled. Please scan RFID to load data.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button onclick="showAddMedicineForm()" style="margin-top: 1.5rem;">
+        <i class="fas fa-plus"></i> Add New Medicine
+      </button>
+    </section>
+
+    <!-- Inventory Section -->
+    <section id="inventory" class="inventory">
+      <h2><i class="fas fa-box-open"></i> Medicine Inventory</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th><i class="fas fa-capsules"></i> Medicine</th>
+              <th><i class="fas fa-box"></i> Total Stock</th>
+              <th><i class="fas fa-layer-group"></i> Remaining</th>
+              <th><i class="fas fa-calendar"></i> Expiry Date</th>
+              <th><i class="fas fa-chart-bar"></i> Status</th>
+              <th><i class="fas fa-cogs"></i> Actions</th>
+            </tr>
+          </thead>
+          <tbody id="inventory-table">
+            <tr>
+              <td colspan="6" class="no-data">No inventory data. Please scan RFID to load data.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Control Panel Section -->
+    <section id="control" class="control">
+      <h2><i class="fas fa-sliders-h"></i> Control Panel</h2>
+      <div class="control-grid">
+        <div class="control-card">
+          <h3><i class="fas fa-volume-up"></i> Alarm Settings</h3>
+          <div class="control-options">
+            <label><input type="checkbox" id="alarmEnabled" checked> Enable Alarms</label>
+            <label>Volume: <input type="range" id="alarmVolume" min="0" max="100" value="75"></label>
+          </div>
+        </div>
+        <div class="control-card">
+          <h3><i class="fas fa-wifi"></i> Connectivity</h3>
+          <div class="control-options">
+            <button onclick="testConnection()" class="btn-test">Test Connection</button>
+            <div id="connectionStatus">Status: Connected</div>
+          </div>
+        </div>
+        <div class="control-card">
+          <h3><i class="fas fa-sync"></i> Sync Data</h3>
+          <div class="control-options">
+            <button onclick="syncData()" class="btn-sync">Sync Now</button>
+            <div id="lastSync">Last sync: Never</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alerts Section -->
+    <section id="alerts" class="alerts">
+      <h2><i class="fas fa-bell"></i> System Alerts</h2>
+      <div class="alert-filters">
+        <button class="filter-btn active" onclick="filterAlerts('all')">All</button>
+        <button class="filter-btn" onclick="filterAlerts('medicine')">Medicine</button>
+        <button class="filter-btn" onclick="filterAlerts('system')">System</button>
+        <button class="filter-btn" onclick="filterAlerts('urgent')">Urgent</button>
+      </div>
+      <ul id="alerts-list">
+        <li class="alert-item">
+          <i class="fas fa-info-circle"></i>
+          <div>
+            <strong>No active alerts</strong>
+            <p>Please scan RFID to load alerts</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Profile Section -->
+    <section id="profile" class="profile">
+      <h2><i class="fas fa-user-cog"></i> User Profile</h2>
+      <div class="profile-container">
+        <div class="profile-section">
+          <h3><i class="fas fa-user"></i> Personal Information</h3>
+          <form id="profileForm">
+            <div class="form-group">
+              <label for="profileName">Full Name:</label>
+              <input type="text" id="profileName" placeholder="Enter full name">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="profileGender">Gender:</label>
+                <select id="profileGender">
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="profileAge">Age:</label>
+                <input type="number" id="profileAge" placeholder="Enter age" min="1" max="120">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="profileDisease">Primary Disease/Condition:</label>
+              <input type="text" id="profileDisease" placeholder="Enter primary condition">
+            </div>
+            <div class="form-group">
+              <label for="profileSymptoms">Current Symptoms:</label>
+              <textarea id="profileSymptoms" placeholder="Describe current symptoms" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="profileDoctor">Doctor's Name:</label>
+              <input type="text" id="profileDoctor" placeholder="Enter doctor's name">
+            </div>
+            <div class="form-group">
+              <label for="profileContact">Emergency Contact:</label>
+              <input type="tel" id="profileContact" placeholder="Enter emergency contact number">
+            </div>
+            <button type="button" onclick="saveProfile()">
+              <i class="fas fa-save"></i> Save Profile
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Caretaker Section -->
+    <section id="caretaker" class="caretaker">
+      <h2><i class="fas fa-users-cog"></i> Caretaker Management</h2>
+      <div class="caretaker-container">
+        <div class="caretaker-section">
+          <h3><i class="fas fa-user-plus"></i> Add Caretaker</h3>
+          <form id="caretakerForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="caretakerName">Caretaker Name:</label>
+                <input type="text" id="caretakerName" placeholder="Enter caretaker name">
+              </div>
+              <div class="form-group">
+                <label for="caretakerRelation">Relationship:</label>
+                <select id="caretakerRelation">
+                  <option value="">Select Relationship</option>
+                  <option value="family">Family Member</option>
+                  <option value="friend">Friend</option>
+                  <option value="nurse">Nurse</option>
+                  <option value="doctor">Doctor</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="caretakerPhone">Phone Number:</label>
+                <input type="tel" id="caretakerPhone" placeholder="Enter phone number">
+              </div>
+              <div class="form-group">
+                <label for="caretakerEmail">Email:</label>
+                <input type="email" id="caretakerEmail" placeholder="Enter email address">
+              </div>
+            </div>
+            <button type="button" onclick="addCaretaker()">
+              <i class="fas fa-plus"></i> Add Caretaker
+            </button>
+          </form>
+        </div>
+        
+        <div class="caretaker-list">
+          <h3><i class="fas fa-list"></i> Current Caretakers</h3>
+          <ul id="caretakers-list">
+            <li class="caretaker-item">
+              <div class="caretaker-info">
+                <strong>No caretakers added</strong>
+                <p>Add caretakers to receive notifications</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Add Medicine Modal -->
+  <div class="modal" id="addMedicineModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-plus"></i> Add New Medicine</h3>
+        <button class="modal-close" onclick="closeAddMedicineForm()">&times;</button>
+      </div>
+      <form id="addMedicineForm">
+        <div class="form-group">
+          <label for="medicineName">Medicine Name:</label>
+          <input type="text" id="medicineName" placeholder="Enter medicine name" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="medicineDosage">Dosage:</label>
+            <input type="text" id="medicineDosage" placeholder="e.g., 100mg" required>
+          </div>
+          <div class="form-group">
+            <label for="medicineTime">Time:</label>
+            <input type="time" id="medicineTime" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="medicineFrequency">Frequency:</label>
+            <select id="medicineFrequency" required>
+              <option value="">Select Frequency</option>
+              <option value="daily">Daily</option>
+              <option value="twice-daily">Twice Daily</option>
+              <option value="thrice-daily">Thrice Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="as-needed">As Needed</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="medicineStock">Stock Quantity:</label>
+            <input type="number" id="medicineStock" placeholder="Enter quantity" min="1" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="medicineUses">Uses/Purpose:</label>
+          <textarea id="medicineUses" placeholder="What is this medicine for?" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="medicineExpiry">Expiry Date:</label>
+          <input type="date" id="medicineExpiry" required>
+        </div>
+        <div class="modal-buttons">
+          <button type="button" onclick="closeAddMedicineForm()" class="btn-secondary">Cancel</button>
+          <button type="submit">
+            <i class="fas fa-save"></i> Add Medicine
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+ 
+
+  <!-- Firebase SDKs & Init -->
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-database-compat.js"></script>
+  <script src="firebase-init.js"></script>
+
+  <!-- Main app script -->
+  <script src="script.js"></script>
+</body>
+</html>

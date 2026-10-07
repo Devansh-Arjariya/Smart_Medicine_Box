@@ -1,4 +1,4 @@
-# 💊 Smart Medicine Box Pro (SMB)
+# 💊 Smart Medicine Box (SMB)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Firebase RTDB](https://img.shields.io/badge/Backend-Firebase%20RTDB-orange.svg)](https://firebase.google.com/)
